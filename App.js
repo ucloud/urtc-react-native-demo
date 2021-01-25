@@ -25,13 +25,13 @@ import UCloudView from './component/videoView/UCloudView';
 const UCloudRtcEventEmitter = new NativeEventEmitter(UCloudRtc);
 // 此处使用固定的房间号的随机的用户ID，请自行替换
 const userId = '958878';
-const appid = 'urtc-ipdozn3z';
+const appid = 'urtc-f0iajgij';
 const roomId = 'ssss02';
-const appKey = '906e5f97adc85fa1b81b96dac1792291';
+const appKey = '62b31630d717aaf14a5c1931c7810bf0';
 const token =
-  'eyJ1c2VyX2lkIjoiNDA1ODA4Iiwicm9vbV9pZCI6InNzc3MwMiIsImFwcF9pZCI6InVydGMtaXBkb3puM3oifQ==.d68c9a9d409e31d8efb7f28ee012d465f9d19042158512816546076944';
+  'eyJ1c2VyX2lkIjoiOTU4ODc4IiwiYXBwX2lkIjoidXJ0Yy1mMGlhamdpaiIsInJvb21faWQiOiJzc3NzMDIifQ==.6e39035ba0fdc29f06cc0209b8a0824bd6fbe8091611565077600e8815';
 const initWithUserID1 = () => {
-  UCloudRtc.initWithAppid(appid, appKey, false)
+  UCloudRtc.initWithAppid(appid, appKey, 1,false,false)
     .then(res => {
       console.log('收到回调', res);
     })
