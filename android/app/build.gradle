@@ -187,7 +187,6 @@ dependencies {
 //    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 //    implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
-//    implementation (name: 'ucloudrtclib_1.7.3_aabbfc24_w', ext: 'aar')
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

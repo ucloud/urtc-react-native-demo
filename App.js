@@ -24,7 +24,7 @@ import UCloudView from './component/videoView/UCloudView';
 
 const UCloudRtcEventEmitter = new NativeEventEmitter(UCloudRtc);
 // 此处使用固定的房间号的随机的用户ID，请自行替换
-const userId = '958879';
+const userId = '958878';
 const appid = 'urtc-ipdozn3z';
 const roomId = 'ssss02';
 const appKey = '906e5f97adc85fa1b81b96dac1792291';
