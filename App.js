@@ -24,7 +24,7 @@ import UCloudView from './component/videoView/UCloudView';
 
 const UCloudRtcEventEmitter = new NativeEventEmitter(UCloudRtc);
 // 此处使用固定的房间号的随机的用户ID，请自行替换
-const userId = '958878';
+const userId = '958879';
 const appid = 'urtc-ipdozn3z';
 const roomId = 'ssss02';
 const appKey = '906e5f97adc85fa1b81b96dac1792291';
@@ -61,6 +61,9 @@ const leaveRoom = () => {
 };
 const unPublishLocalStream = () => {
   UCloudRtc.unPublishLocalStream();
+};
+const startservice = () => {
+  UCloudRtc.startForeGroundService();
 };
 const addListener = () => {
   UCloudRtcEventEmitter.addListener('event_memberDidJoinRoom', args => {
@@ -117,6 +120,12 @@ const App: () => React$Node = () => {
               onPress={leaveRoom}
               style={styles.button}>
               <Text style={styles.buttonText}> 离开房间 </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="startservice"
+              onPress={startservice}
+              style={styles.button}>
+              <Text style={styles.buttonText}> 开启服务 </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
