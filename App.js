@@ -19,7 +19,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import UCloudRtc from 'react-native-ucloud-rtc';
+import UCloudRtc from 'react-native-urtc';
 import UCloudView from './component/videoView/UCloudView';
 
 const UCloudRtcEventEmitter = new NativeEventEmitter(UCloudRtc);
