@@ -30,6 +30,7 @@ const roomId = 'ssss02';
 const appKey = '62b31630d717aaf14a5c1931c7810bf0';
 const token =
   'eyJ1c2VyX2lkIjoiOTU4ODc4IiwiYXBwX2lkIjoidXJ0Yy1mMGlhamdpaiIsInJvb21faWQiOiJzc3NzMDIifQ==.6e39035ba0fdc29f06cc0209b8a0824bd6fbe8091611565077600e8815';
+
 const initWithUserID1 = () => {
   UCloudRtc.initWithAppid(appid, appKey, 1,false,false)
     .then(res => {
@@ -49,8 +50,11 @@ const joinRoom = () => {
       console.log('捕获异常', err);
     });
 };
+var remoteInfos = new Set(); 
 const subscribeRemoteStream = () => {
-  UCloudRtc.subscribeRemoteStream();
+  for (let remoteInfo of remoteInfos) {
+    UCloudRtc.subscribeRemoteStream(remoteInfo);
+  }
 };
 
 const publishLocalStreamWithCameraEnable = () => {
@@ -72,10 +76,28 @@ const addListener = () => {
   UCloudRtcEventEmitter.addListener('event_memberDidLeaveRoom', args => {
     console.log('事件event_memberDidLeaveRoom', args);
   });
+  UCloudRtcEventEmitter.addListener('event_remotePublish',args => {
+    console.log('事件event_remotePublish', args);
+    remoteInfos.add(args);
+    console.log('remote publish remoteInfos size', remoteInfos.size);
+  });
+  UCloudRtcEventEmitter.addListener('event_remoteUnPublish',args => {
+    console.log('event_remoteUnPublish', args);
+    for (let remoteInfo of remoteInfos) {
+      if(remoteInfo["uId"] == args["uId"] && remoteInfo["mediaType"] == args["mediaType"]){
+        remoteInfos.delete(remoteInfo);
+      }
+    }
+    // remoteInfos.forEach((value1, value2) => {
+    //   if(value1["uId"] == args["uId"] && value1["mediaType"] == value1["mediaType"]){
+    //     remoteInfos.delete(value1);
+    //   }
+    // });
+    console.log('remote unpublish remoteInfos size', remoteInfos.size);
+  });
   UCloudRtcEventEmitter.addListener('event_remoteVolumeChange', args => {
     console.log('事件event_remoteVolumeChange', args);
   });
-    
 };
 const App: () => React$Node = () => {
   return (
