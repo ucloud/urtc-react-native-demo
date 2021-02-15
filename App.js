@@ -56,7 +56,11 @@ const subscribeRemoteStream = () => {
     UCloudRtc.subscribeRemoteStream(remoteInfo);
   }
 };
-
+const unSubscribeRemoteStream = () => {
+  for (let remoteInfo of remoteInfos) {
+    UCloudRtc.unSubscribeRemoteStream(remoteInfo);
+  }
+};
 const publishLocalStreamWithCameraEnable = () => {
   UCloudRtc.publishLocalStreamWithCameraEnable(false);
 }
@@ -70,11 +74,27 @@ const startservice = () => {
   UCloudRtc.startForeGroundService();
 };
 const addListener = () => {
-  UCloudRtcEventEmitter.addListener('event_memberDidJoinRoom', args => {
-    console.log('事件event_memberDidJoinRoom', args);
+  UCloudRtcEventEmitter.addListener('event_joinRoom', args => {
+    console.log('事件event_joinRoom', args);
   });
-  UCloudRtcEventEmitter.addListener('event_memberDidLeaveRoom', args => {
-    console.log('事件event_memberDidLeaveRoom', args);
+  UCloudRtcEventEmitter.addListener('event_leaveRoom', args => {
+    console.log('事件event_leaveRoom', args);
+    UCloudRtcEventEmitter.removeAllListeners('event_joinRoom');
+    UCloudRtcEventEmitter.removeAllListeners('event_leaveRoom');
+    UCloudRtcEventEmitter.removeAllListeners('event_publish');
+    UCloudRtcEventEmitter.removeAllListeners('event_unPublish');
+    UCloudRtcEventEmitter.removeAllListeners('event_remotePublish');
+    UCloudRtcEventEmitter.removeAllListeners('event_remoteUnPublish');
+    UCloudRtcEventEmitter.removeAllListeners('event_subscribe');
+    UCloudRtcEventEmitter.removeAllListeners('event_unSubscribe');
+    remoteInfos.clear();
+    console.log('事件event_leaveRoom end', args);
+  });
+  UCloudRtcEventEmitter.addListener('event_publish', args => {
+    console.log('事件event_publish', args);
+  });
+  UCloudRtcEventEmitter.addListener('event_unPublish', args => {
+    console.log('事件event_unPublish', args);
   });
   UCloudRtcEventEmitter.addListener('event_remotePublish',args => {
     console.log('事件event_remotePublish', args);
@@ -95,8 +115,11 @@ const addListener = () => {
     // });
     console.log('remote unpublish remoteInfos size', remoteInfos.size);
   });
-  UCloudRtcEventEmitter.addListener('event_remoteVolumeChange', args => {
-    console.log('事件event_remoteVolumeChange', args);
+  UCloudRtcEventEmitter.addListener('event_subscribe',args => {
+    console.log('事件event_subscribe', args);
+  });
+   UCloudRtcEventEmitter.addListener('event_unSubscribe',args => {
+    console.log('事件event_unSubscribe', args);
   });
 };
 const App: () => React$Node = () => {
@@ -124,6 +147,12 @@ const App: () => React$Node = () => {
               onPress={subscribeRemoteStream}
               style={styles.button}>
               <Text style={styles.buttonText}> 订阅 </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="unSubscribeRemoteStream"
+              onPress={unSubscribeRemoteStream}
+              style={styles.button}>
+              <Text style={styles.buttonText}> 取消订阅 </Text>
             </TouchableOpacity>
             <TouchableOpacity
               title="publishLocalStreamWithCameraEnable"
