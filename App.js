@@ -181,7 +181,7 @@ const App: () => React$Node = () => {
           </View>
         </ScrollView>
         <View>
-          <UCloudView />
+          <UCloudView style={{ position: 'absolute', top: 100, left: 100 }}/>
         </View>
       </SafeAreaView>
     </>
